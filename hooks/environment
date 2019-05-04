@@ -8,6 +8,7 @@ main() {
 
   echo "Exporting ${#env_list} bytes of env"
   set -a
+  echo "$env_list"
   eval "$env_list"
   set +a
 }
@@ -48,13 +49,8 @@ function read_meta_data() {
 
   value=$(buildkite-agent meta-data get "$meta_data_key")
 
-  if [[ -n "$value" ]]; then
-    echo "${mapped_key}=(${#value} chars)" >&2;
-    echo "${mapped_key}=${value}"
-  else
-    echo "Could not read meta-data: ${meta_data_key}" >&2;
-    exit 1
-  fi
+  echo "${mapped_key}=(${#value} chars)" >&2;
+  echo "${mapped_key}='${value}'"
 }
 
 main
