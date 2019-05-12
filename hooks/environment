@@ -47,8 +47,8 @@ function read_meta_data() {
   meta_data_key_alias=${key_mapped[1]:-}
   mapped_key=${meta_data_key_alias:-$meta_data_key}
 
-  value=$(buildkite-agent meta-data get "$meta_data_key")
-  echo ${value} > /tmp/meta_${BUILDKITE_BUILD_NUMBER}_${mapped_key}
+  buildkite-agent meta-data get "$meta_data_key" > /tmp/meta_${BUILDKITE_BUILD_NUMBER}_${mapped_key}
+  value=`cat /tmp/meta_${BUILDKITE_BUILD_NUMBER}_${mapped_key}`
 
   echo "${mapped_key}=(${#value} chars)" >&2;
   echo "${mapped_key}=\`cat /tmp/meta_${BUILDKITE_BUILD_NUMBER}_${mapped_key}\`"
